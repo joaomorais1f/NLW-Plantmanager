@@ -68,7 +68,7 @@ export function PlantSelect() {
       setFilteredPlants(oldValue => [... oldValue, ... data]);
     } else {
       setPlants(data);
-      setFilteredPlants(plants);
+      setFilteredPlants(data);
     }
     setLoading(false);
     setLoadingMore(false);
@@ -147,10 +147,14 @@ export function PlantSelect() {
           numColumns={2}
           contentContainerStyle={styles.contentContainer}
           onEndReachedThreshold={0.1}
-          onEndReached={({ distanceFromEnd}) => {
-            handleFetchMore(distanceFromEnd);
-          }}
-          ListFooterComponent={<ActivityIndicator color={colors.green} />}
+          onEndReached={({ distanceFromEnd }) =>
+            handleFetchMore(distanceFromEnd)
+          }
+          ListFooterComponent={
+            loadingMore 
+            ? <ActivityIndicator color={colors.green} />
+            : <></>
+        }
         />
       </View>
     </View>

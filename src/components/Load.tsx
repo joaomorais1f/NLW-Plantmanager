@@ -12,9 +12,7 @@ export function Load() {
         autoPlay
         loop
         style={styles.animation}
-      >
-
-      </LottieView>
+      />
     </View>
   )
 }
