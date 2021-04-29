@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
   container: {
     width: 76,
     height: 40,
-    marginRight: 5,
+    marginHorizontal: 8,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 12,
