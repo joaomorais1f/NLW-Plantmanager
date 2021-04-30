@@ -14,6 +14,7 @@ import { EnvironmentButton } from '../components/EnvironmentButton';
 import { PlantCardPrimary } from '../components/PlantCardPrimary';
 import { Load } from '../components/Load';
 
+import { PlantProps } from '../libs/storage';
 import colors from '../styles/colors';
 import fonts from '../styles/fonts';
 interface EnvironmentsProps {
@@ -21,18 +22,6 @@ interface EnvironmentsProps {
   title: string;
 }
 
-interface PlantProps {
-  id: string;
-  name: string;
-  about: string;
-  water_tips: string;
-  photo: string;
-  environments: [string],
-  frequency: {
-    times: number;
-    repeat_every: string;
-  }
-}
 
 export function PlantSelect() {
   const [environments, setEnvironments] = useState<EnvironmentsProps[]>([]);
@@ -173,7 +162,8 @@ export function PlantSelect() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor: colors.white
   },
   header: {
     paddingHorizontal: 30

@@ -5,7 +5,6 @@ import {
   Text, 
   View, 
   Image, 
-  ScrollView,
   Platform,
   TouchableOpacity 
 } from 'react-native';
@@ -14,31 +13,23 @@ import { format, isBefore } from 'date-fns';
 
 import { SvgFromUri } from 'react-native-svg';
 import { getBottomSpace } from 'react-native-iphone-x-helper';
-import { useRoute } from '@react-navigation/core';
+import { useNavigation, useRoute } from '@react-navigation/core';
 
 import { Button } from '../components/Button';
+
+import { PlantProps, savePlant } from '../libs/storage';
 
 import waterdrop from '../assets/waterdrop.png';
 import colors from '../styles/colors';
 import fonts from '../styles/fonts';
 
-
 interface Params {
-  plant: {
-    id: string;
-    name: string;
-    about: string;
-    water_tips: string;
-    photo: string;
-    environments: [string],
-    frequency: {
-      times: number;
-      repeat_every: string;
-    }
-  }
+  plant: PlantProps
 }
 
 export function PlantSave() {
+  const navigation = useNavigation();
+
   const [selectedDateTime, setSelectedDateTime] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(Platform.OS == 'ios');
 
@@ -62,6 +53,26 @@ export function PlantSave() {
   
   const handleDatePickerTimeForAndroid = () => {
     setShowDatePicker(oldState => !oldState);
+  }
+
+
+  const handleSavePLant = async () => {
+    try {
+      await savePlant({
+        ... plant,
+        dateTimeNotification: selectedDateTime
+      });
+      navigation.navigate('Confirmation', {
+        title: 'Tudo certo',
+        subtitle: 'Fique tranquilo, pois sempre vamos lembrar \n você de cuidar da sua plantinha com muito \n cuidado.',
+        buttonTitle: 'Muito Obrigado :D',
+        icon: 'hug',
+        nextScreen: 'MyPlants'
+      });
+
+    } catch {
+      Alert.alert('Não foi possível salvar a planta. 😥');
+    }
   }
 
   return (
@@ -111,7 +122,7 @@ export function PlantSave() {
         }
       <Button 
         title="Cadastrar planta"
-        onPress={() => {}} 
+        onPress={handleSavePLant} 
       />
     </View>
   </View>
