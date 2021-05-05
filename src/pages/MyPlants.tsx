@@ -86,9 +86,8 @@ export function MyPlants() {
           {nextWatered}
         </Text>
       </View>
-      <ScrollView 
+      <View  
         style={styles.plants}
-        showsVerticalScrollIndicator={false}
       >
         <Text style={styles.plantsTitle}>
           Próximas regadas
@@ -105,7 +104,7 @@ export function MyPlants() {
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{ flex: 1 }}
         />
-      </ScrollView>
+      </View>
     </View>
   )
 }
